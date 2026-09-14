@@ -1,0 +1,27 @@
+# Dataset and generated data
+data/
+
+# Model checkpoints
+checkpoints/
+
+# Experiment outputs
+results/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS/editor files
+.DS_Store
+.vscode/
+.idea/
+src/depression_paper.egg-info/

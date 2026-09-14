@@ -1,0 +1,139 @@
+# ############################################################################
+# Dataset
+# ############################################################################
+
+dataset:
+
+  name: e_daic
+
+  root: /home/hp/E-DAIC
+
+  phq8_depression_threshold: 10
+
+  segment_duration_sec: 5.0
+
+  sample_rate: 16000
+
+  use_splits:
+    - train
+    - dev
+
+
+# ############################################################################
+# Preprocessing
+# ############################################################################
+
+preprocessing:
+
+  output_dir: /home/hp/depression-paper/data/processed
+
+  extract_audio: true
+
+  keep_interviewer: false
+
+
+# ############################################################################
+# Features
+# ############################################################################
+
+features:
+
+  output_dir: /home/hp/depression-paper/data/features
+
+  embeddings:
+    - ecapa
+    - xvector
+    - dvector
+
+  opensmile:
+    feature_set: IS09_emotion
+    feature_level: Functionals
+    dim: 384
+
+  covarep:
+    statistics:
+      - mean
+      - max
+      - min
+      - std
+      - skew
+      - kurtosis
+
+    frame_features: 74
+    dim: 444
+
+
+# ############################################################################
+# Training
+# ############################################################################
+
+training:
+
+  n_folds: 5
+
+  random_seed: 42
+
+  temporal_context: 16
+
+  batch_size: 128
+
+  epochs: 50
+
+  learning_rate: 0.0005
+
+  adam_beta1: 0.9
+  adam_beta2: 0.99
+
+  dropout:
+    cnn: 0.3
+    lstm: 0.4
+    fc: 0.3
+
+  lstm_hidden: 128
+  lstm_layers: 2
+
+  fc_units: 100
+
+  mkcnn_channels: 50
+
+  class_weight: true
+
+  device: cuda
+
+
+# ############################################################################
+# Experiments
+# ############################################################################
+
+experiments:
+
+  models:
+    - mk_cnn
+    - lstm
+    - dnn
+
+  feature_combinations:
+    - ecapa
+    - xvector
+    - dvector
+    - opensmile
+    - covarep
+    - ecapa_opensmile
+    - ecapa_covarep
+    - xvector_opensmile
+    - dvector_opensmile
+
+  tasks:
+    - detection
+    - severity
+
+
+# ############################################################################
+# Output
+# ############################################################################
+
+output:
+
+  results_dir: /home/hp/depression-paper/results
+
+  checkpoints_dir: /home/hp/depression-paper/checkpoints
