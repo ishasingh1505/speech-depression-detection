@@ -4,9 +4,6 @@ data/
 # Model checkpoints
 checkpoints/
 
-# Experiment outputs
-results/
-
 # Python cache
 __pycache__/
 *.py[cod]
